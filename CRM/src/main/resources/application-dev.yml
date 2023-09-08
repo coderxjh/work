@@ -1,0 +1,63 @@
+#配置文件加密
+jasypt:
+    encryptor:
+        password: salt
+
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+#            url: jdbc:mysql://192.168.1.116:3306/saas?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+#            url: ENC(8qqq9+026Dbcw61tRDHLVDPIH3EmWa0kBuBnipryBSPbOf2eq2QzJlkNbn7gtUVykypFvDdVHXdPnKO9099CBI6yd58YUtmfY2Ya5bVG5vz5JhsaPHu7SZ25kgO8q2nVXZtNFxVvwAQZRkKvL7od1UT65VzfsKVTkqVoVuxv7dtc/N0jTp5SvFOKKbcTo0Ss)
+            url: jdbc:mysql://192.168.1.117:3306/crm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+            username: root
+#            username: ENC(yV3Gick7PPB1V7mE+smP2A==)
+            password: 123456
+#            password: ENC(/0WFdsdIszTUGSTyZbmE9rhwPmLzHRt8)
+            initial-size: 10
+            max-active: 100
+            min-idle: 10
+            max-wait: 60000
+            pool-prepared-statements: true
+            max-pool-prepared-statement-per-connection-size: 20
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            #Oracle需要打开注释
+            #validation-query: SELECT 1 FROM DUAL
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            stat-view-servlet:
+                enabled: true
+                url-pattern: /druid/*
+                #login-username: admin
+                #login-password: admin
+            filter:
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 1000
+                    merge-sql: false
+                wall:
+                    config:
+                        multi-statement-allow: true
+
+minio:
+    endpoint: https://xiao001.fun:9000 #MinIO服务所在地址
+    bucketName: test #存储桶名称
+    accessKey: minioadmin #访问的key
+    secretKey: minioadmin #访问的秘钥
+
+##多数据源的配置
+#dynamic:
+#  datasource:
+#    slave1:
+#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#      url: jdbc:sqlserver://localhost:1433;DatabaseName=renren_security
+#      username: sa
+#      password: 123456
+#    slave2:
+#      driver-class-name: org.postgresql.Driver
+#      url: jdbc:postgresql://localhost:5432/renren_security
+#      username: renren
+#      password: 123456
